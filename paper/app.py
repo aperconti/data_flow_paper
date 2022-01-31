@@ -1,6 +1,6 @@
 import os
 import boto3
-from chalice import Chalice
+from chalice import Chalice, Response
 import ast
 import json
 
@@ -25,38 +25,49 @@ def get_paper_db():
     return _PAPER_DB
 
 
-@app.route('/paper', methods=['POST'])
-def paper():
-    body = ast.literal_eval(app.current_request.raw_body.decode())
-    table = get_paper_db()
-    response = table.put_item(
-        Item=body
-    )
-    put_response = get_notifier_topic().publish(
+def publish_to_sns(body):
+    response = get_notifier_topic().publish(
         TargetArn=os.environ["NOTIFIER_ARN"],
         Message=json.dumps({'default': json.dumps(body)}),
         MessageStructure='json'
     )
-    print(put_response)
+    app.log.debug(f'publishing to SNS topic: {body} response: {response}')
+
+
+@app.route('/paper', methods=['POST'])
+def create_paper():
+    body = ast.literal_eval(app.current_request.raw_body.decode())
+    body['paper_status'] = 'created'
+    table = get_paper_db()
+    response = table.put_item(
+        Item=body
+    )
+    publish_to_sns(body)
     return response
 
 
-# The view function above will return {"hello": "world"}
-# whenever you make an HTTP GET request to '/'.
-#
-# Here are a few more examples:
-#
-# @app.route('/hello/{name}')
-# def hello_name(name):
-#    # '/hello/james' -> {"hello": "james"}
-#    return {'hello': name}
-#
-# @app.route('/users', methods=['POST'])
-# def create_user():
-#     # This is the JSON body the user sent in their POST request.
-#     user_as_json = app.current_request.json_body
-#     # We'll echo the json body back to the user in a 'user' key.
-#     return {'user': user_as_json}
-#
-# See the README documentation for more examples.
-#
+@app.route('/paper', methods=['PATCH'])
+def update_paper():
+    body = ast.literal_eval(app.current_request.raw_body.decode())
+    table = get_paper_db()
+    body['paper_status'] = 'assigned'
+    try:
+        response = table.update_item(
+            Key={
+                'id': body.get('id')
+            },
+            UpdateExpression="set teacher_email=:r, paper_status=:p",
+            ExpressionAttributeValues={
+                ':r': body.get('teacher_email'),
+                ':p': body.get('paper_status')
+            },
+            ReturnValues="UPDATED_NEW"
+        )
+    except Exception as e:
+        app.log.error(
+            f'Error updating: {body.get("id")} body: {body} error: {e} key: {body.get("id")}')
+        return Response(body='Oh no! We weren\'t able to update your paper!',
+                        status_code=500,
+                        headers={'Content-Type': 'text/plain'})
+    publish_to_sns(body)
+    return response
