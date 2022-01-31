@@ -17,7 +17,7 @@ Upon both a POST and PATCH, the creator's email with be notified through this mi
 
 #### Installation and Setup
 
-For the most part, sendgrid, boto, and chalice are the frameworks that are used.
+For the most part, mailjet, boto, and chalice are the frameworks that are used.
 
 ```bash
 pip install -r requirements.txt
@@ -35,7 +35,7 @@ pip install -r requirements.txt
 |PostMan    |    For easy interaction with the API. Postman is an API platform for building and using APIs. Postman simplifies each step of the API lifecycle and streamlines collaboration so you can create better APIs—faster. |
 |AWS SNS (PubSub)    |    Its in the AWS eco system, its straightforward and worked well with the other tools I was using.  |
 |Python    |    Best tool for the job
-|sendGrid    |    for senting transactional emails. SendGrid is a cloud-based SMTP (Simple Mail Transfer Protocol) provider that allows you to send email without having to maintain email servers. |
+|mailjet    |    for senting transactional emails. mailjet is a cloud-based SMTP (Simple Mail Transfer Protocol) provider that allows you to send email without having to maintain email servers. |
 |AWS API gateway    |    Its in the AWS eco system, cost efficent and makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. |
 |AWS CloudWatch    |    Its in the AWS eco system, CloudWatch makes it easy to detect anomalous behavior in your environments, visualize logs and metrics, troubleshoot issues, and discover insights to keep your applications running smoothly.
 
