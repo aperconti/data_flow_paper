@@ -2,6 +2,7 @@ import os
 import requests
 from chalice import Chalice
 import sendgrid
+import ast
 from sendgrid.helpers.mail import Email, To, Content, Mail
 
 app = Chalice(app_name='notifier')
@@ -9,11 +10,9 @@ app = Chalice(app_name='notifier')
 
 @app.on_sns_message(topic='notifier')
 def index(event):
-    app.log.error("Received message with subject: %s, message: %s",
-                  event.subject, event.message)
-
     try:
-        student_email = event.message.get('student_email')
+        message = ast.literal_eval(event.message)
+        student_email = message.get('student_email')
         sg = sendgrid.SendGridAPIClient(api_key=os.environ["SENDGRID_API_KEY"])
         from_email = Email("autumlucille@gmail.com")
         to_email = To(student_email)
@@ -24,6 +23,6 @@ def index(event):
         response = sg.client.mail.send.post(request_body=mail.get())
         app.log.debug("Error sending message to sendgrid: %s, message: %s response: %s",
                       event.subject, event.message, response)
-    except:
-        app.log.error("Error sending message to sendgrid: %s, message: %s",
-                      event.subject, event.message)
+    except Exception as e:
+        app.log.error("Error sending message to sendgrid: %s, message: %s error: %s type: %s",
+                      event.subject, event.message, e, type(event.message))
