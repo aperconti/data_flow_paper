@@ -10,6 +10,8 @@ notifier/.chalice/deployments/
 notifier/.chalice/venv/
 notifier/.chalice/config.json/
 
+venv37/
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
