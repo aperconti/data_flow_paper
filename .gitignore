@@ -10,8 +10,6 @@ notifier/.chalice/deployments/
 notifier/.chalice/venv/
 notifier/.chalice/config.json/
 
-venv37/
-
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -134,6 +132,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+venv37/
+.venv37/
 
 # Spyder project settings
 .spyderproject
