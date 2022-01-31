@@ -2,17 +2,13 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
 ### Chalice ###
-paper/.chalice/deployments/
-paper/.chalice/venv/
-paper/.chalice/config.json/
-
-notifier/.chalice/deployments/
-notifier/.chalice/venv/
-notifier/.chalice/config.json/
+*deployments/
+*deployed/
+*config.json
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
-__pycache__/
+*__pycache__/
 *.py[cod]
 *$py.class
 
@@ -133,7 +129,6 @@ ENV/
 env.bak/
 venv.bak/
 venv37/
-.venv37/
 
 # Spyder project settings
 .spyderproject
