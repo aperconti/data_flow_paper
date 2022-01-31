@@ -2,8 +2,13 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
 ### Chalice ###
-notifier/.chalice/deployments/
+paper/.chalice/deployments/
 paper/.chalice/venv/
+paper/.chalice/config.json/
+
+notifier/.chalice/deployments/
+notifier/.chalice/venv/
+notifier/.chalice/config.json/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
