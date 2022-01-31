@@ -11,11 +11,12 @@ app = Chalice(app_name='notifier')
 def index(event):
     app.log.error("Received message with subject: %s, message: %s",
                   event.subject, event.message)
-    sg = sendgrid.SendGridAPIClient(api_key="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")
+    sg = sendgrid.SendGridAPIClient(api_key=os.environ["SENDGRID_API_KEY"])
     from_email = Email("test@example.com")
     to_email = To("autumlucille@gmail.com")
     subject = "Sending with SendGrid is Fun"
-    content = Content("text/plain", "and easy to do anywhere, even with Python")
+    content = Content(
+        "text/plain", "and easy to do anywhere, even with Python")
     mail = Mail(from_email, to_email, subject, content)
     response = sg.client.mail.send.post(request_body=mail.get())
     print(response.status_code)
