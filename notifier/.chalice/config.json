@@ -1,0 +1,13 @@
+{
+  "version": "2.0",
+  "app_name": "notifier",
+  "stages": {
+    "dev": {
+      "api_gateway_stage": "api",
+      "environment_variables": {
+        "MAILGUN_URL": "https://api.mailgun.net/v3/sandbox99a93c79fc444e32b148af28f2381de6.mailgun.org",
+        "MAILGUN_API_KEY": "77563315d2f7188d3286fa6ec1625687-054ba6b6-4bb6d3ea"
+      }
+    }
+  }
+}
