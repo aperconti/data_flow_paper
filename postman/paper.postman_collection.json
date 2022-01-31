@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "9cad1dbf-cf5c-4592-935a-0a8277a52324",
+		"name": "paper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create paper",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t\"subject\": \"ELA\",\n    \"student_email\": \"autumlucille+student@gmail.com\",\n\t\"id\": \"f6972d6a-7ab6-440d-80c4-e7ec10478824\",\n\t\"description\": \"I am having trouble starting my informational essay on Mnt Everest.\",\n\t\"file\": \"Everest Mount Everest, the world’s highest point at 29,035 feet, is a special trophy among high altitude mountaineers. Standing atop the world’s highest point a hypoxic climber clad in a fluorescent down suit is above everything else on the planet, for a moment that individual can reach farther into the sky than any other. Arms raised in a victorious salute, a climber feels like they have conquered something that few others ever have, and justifiably so. The summit is usually the final fruition\"\n}\n    \n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/paper",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"paper"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update paper",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n\t\"id\": \"f6972d6a-7ab6-440d-80c4-e7ec10478824\",\n    \"teacher_email\": \"autumlucille+teacher@gmail.com\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/paper",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"paper"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
