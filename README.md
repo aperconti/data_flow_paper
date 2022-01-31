@@ -3,7 +3,7 @@
 ![Basic Architectural Diagram](/docs/paper.png)
 
 ## Overview:
-This is a basic implementation of a data flow for a theoretical product where students submit papers for writing feedback. Once a Student submits a paper to receive edits, the information will be retrieved via a lambda and will then be recorded in the database. The submission will them be published to an SNS topic that will alert subscribers (tudors, teach, student) that the paper has been submitted. The record of the alerts will be recorded in the database as well under a table titled **alerts**. Once the tutor picks up the paper to begin reviewing it the action will be published to SNS which alerts the student that the review is in process.  Data of this action will be recorded in the **events** and **alerts** table.
+This is a basic data flow implementation for a theoretical product where students submit papers for writing feedback. Once a student submits a paper to receive edits, the information will be retrieved via a lambda and will then be recorded in the database. The submission will then be published to an SNS topic that will alert subscribers (tudors, teach, student) that the paper has been submitted.
 
 ## Assumptions:
 
@@ -42,4 +42,4 @@ pip install -r requirements.txt
 ## Areas to improve:
 * Change DB from a non-relational DB to a relational DB. The data in this project would be more highly utilized if relationships were drawn.
 
-* The flow is very fragmented currently which could make trouble shooting difficult. Orchestration tools such as Apache Airflow, or Dagster would allow for increased visibility in trouble shooting.
+* The flow is very fragmented currently, which could make troubleshooting difficult. Orchestration tools such as Apache Airflow, or Dagster would allow increased visibility in troubleshooting.
